@@ -13,12 +13,15 @@ Mux-Sub is a universal FFmpeg-powered muxer designed for anime, donghua, TV seri
 ## Features
 
 - **Automatic episode-to-subtitle matching** from common naming schemes
-- **Multiple subtitle formats** — ASS, SSA, SRT, VTT, SUB (with ASS prioritized)
+- **Fallback positional matching** — if no episode numbers are detected, files are paired alphabetically 1-to-1
+- **Already-muxed detection** — skips files that were previously processed by Mux-Sub
+- **Multiple subtitle formats** — ASS, SSA, SRT, VTT, SUB (with ASS prioritized; all converted to ASS in output)
 - **Font embedding** — all fonts in `sub/font/` are automatically attached
 - **Chapter/jump point support** — optional chapter markers for media players
 - **Lossless output** — video and audio are copied without re-encoding
 - **Metadata & language preservation** — all track info carried over
 - **Custom output naming** — flexible template system for filenames
+- **Always outputs MKV** — regardless of source container format
 
 ---
 
@@ -52,8 +55,14 @@ Or simply download `main.py` and place it in your release folder.
 
 ## Folder Structure
 
+1. Create a folder and put all your **episode files** inside it. Make sure both the episodes and subtitles have episode numbers in their filenames so Mux-Sub can match them correctly.
+2. Inside that folder, create a subfolder called **`sub/`** and place all your subtitle files there.
+3. Inside `sub/`, create another subfolder called **`font/`** and place all your font files there.
+4. Place **`main.py`** in the root folder alongside the episodes — not inside `sub/` or `font/`.
+
 ```
 Series Folder/
+├── main.py          ← script goes here
 ├── 1.mkv
 ├── 2.mkv
 ├── 3.mkv
@@ -81,10 +90,10 @@ python3 main.py
 
 ### Series Name
 
-When prompted, enter the series name:
+Series name is optional. Leave it blank and the original filename will be used instead.
 
 ```
-Series Name: Stellar Transformation
+Series Name (optional): Stellar Transformation
 ```
 
 ### Output Template
@@ -130,6 +139,21 @@ Stellar Transformation EP02.mkv
 
 ---
 
+## Supported Video Formats
+
+| Format | Extension |
+|---|---|
+| Matroska | `.mkv` |
+| MPEG-4 | `.mp4` |
+| iTunes Video | `.m4v` |
+| QuickTime | `.mov` |
+| AVI | `.avi` |
+| WebM | `.webm` |
+
+> Regardless of input format, the output is always an `.mkv` file.
+
+---
+
 ## Supported Episode Formats
 
 Mux-Sub automatically detects episode numbers from a wide range of filename patterns:
@@ -169,7 +193,7 @@ When prompted:
 Add jump points? (y/n): y
 ```
 
-Enter your chapters in `Label|HH:MM:SS` format:
+Enter your chapters in `Label|MM:SS` or `Label|HH:MM:SS` format:
 
 ```
 Opening|00:00
@@ -202,6 +226,9 @@ All font files inside `sub/font/` are automatically embedded into the output MKV
 ## Notes
 
 - Video and audio streams are copied directly — **no quality loss**.
+- All subtitle formats are **converted to ASS** in the output and tagged as English (`language=eng`).
+- Files already processed by Mux-Sub are **automatically skipped** on subsequent runs.
+- If no episode numbers are found in filenames, files are **paired alphabetically** in order.
 - Source files are removed only after **successful** muxing.
 - FFmpeg and FFprobe must be accessible from your system `PATH`.
 - Existing cover art is intentionally ignored during muxing.
